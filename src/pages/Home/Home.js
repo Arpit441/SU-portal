@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-pascal-case */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import path1 from "../../assets/home/hero/path1.svg";
 import path2 from "../../assets/images/video/Coverup.svg";
 import heroImg from "../../assets/home/hero/heroImg.svg";
@@ -10,6 +12,9 @@ import Footer from "../../components/Footer/Footer";
 import bgvideo from '../../assets/images/video/movie.mp4'
 import footer from "../../assets/images/footer.png";
 import Footerdark from '../../assets/images/Footerdark.svg'
+
+import dopy from '../../assets/home/hero/dopy.jpg'
+import journal from '../../assets/home/hero/journal.jpg'
 
 import Text from "./Text";
 
@@ -28,6 +33,10 @@ import Navbar from "../../components/NavbarNew/Navbar";
 import SU from '../../assets/home/hero/su.jpeg'
 // import SU1 from '../../assets/home/hero/su1.jpeg'
 // import SU2 from '../../assets/home/hero/su2.jpeg'
+import { BarWave } from "react-cssfx-loading";
+// Better way to reduce bundle size
+import BarWave1 from "react-cssfx-loading/lib/FadingBalls";
+import { useHistory } from "react-router-dom";
 
 function Home() {
   const [index, setIndex] = useState(0);
@@ -114,33 +123,33 @@ function Home() {
       title: "The heading and heading part2",
     },
   ];
+  const history = useHistory();
+  const [loading, setLoading] = useState(history.length <= 2);
+  const setSpinner = (x)=>{
+    console.log(history.length);
+    if(history.length >1){
+      x = false;
+    }
+    setLoading(x);
+  }
+
+  useEffect(() => {
+    setTimeout(() => setSpinner(false), 3000)
+  }, []);
 
   return (
     <div>
+      { !loading ? (
+      <div>
       <Navbar />
-        {/* <div
-          style={{ height: "10vh", width: "100%", background: "white" }}
-        ></div> */}
-        {/* <img src={path1} alt="path1" style={{ width: "100%", position:"absolute" }} /> */}
-        {/* <div style={{width:"100%", height:"500px", background:"black", opacity:"0.5",position:"absolute"}}></div> */}
-        {/* <video alt="path1" style={{ width: "100%"}} autoPlay loop muted>
-          <source src={bgvideo} type="video/mp4"/>
-        </video>
-        <object
-          type="image/svg+xml"
-          data={heroImg}
-          style={{ position: "absolute", top: 30, right: 20, width: "50vw" }}
-        >
-          <param name="param1" value={dp} />
-        </object> */}
+                  <div
+                    style={{ height: "10vh", width: "100%", background: "white" }}
+                  ></div>
       <div style={{ position: "relative" }}>
-      {/* <img src={path1} alt="path1" style={{ width: "100%", position:"absolute" }} /> */}
-        {/* <div style={{width:"100%", height:"500px", background:"blue", opacity:"0.5",position:"relative"}}></div> */}
         <video alt="path1" style={{ width: "100%", position:"absolute"}} autoPlay loop muted>
           <source src={bgvideo} type="video/mp4"/>
         </video>
         <img src={overlay} alt="path1" style={{ width: "100%", position:"absolute" }} />
-        {/* <img src={path2} alt="path1" style={{ width: "100%", position:"relative" }} /> */}
         <object
           type="image/svg+xml"
           data={heroImg}
@@ -149,32 +158,12 @@ function Home() {
           <param name="param1" value={dp} />
         </object>
         
-        {/* <video alt="path1" style={{ width: "100%"}} autoPlay loop muted>
-          <source src={bgvideo} type="video/mp4"/>
-        </video> */}
-        {/* <img 
-          src={dp}
-          alt=" heroimg1"
-          style={{ position: "absolute", top: 4, right: 20, width: "40vw" }}
-        /> */}
-        {/* <object
-          type="image/svg+xml"
-          data={heroImg}
-          style={{ position: "absolute", top: 30, right: 20, width: "50vw" }}
-        >
-          <param name="param1" value={dp} />
-        </object> */}
-        {/* <img
-          src={heroImg}
-          alt=" heroimg"
-          style={{ position: "absolute", top: 4, right: 20, width: "50vw" }}
-        /> */}
-
-        <div style={{ position: "relative", top: 100, paddingLeft: 30 }}>
+        <div style={{ position: "relative", top: 120, paddingLeft: 30 }}>
           <Text />
           <div
             style={{
-              height: "60px",
+              height: "50px",
+              marginTop:"20px",
               textAlign: "left",
               font: "normal normal 800 30px/49px Montserrat",
               letterSpacing: "0px",
@@ -203,20 +192,6 @@ function Home() {
         </b>
         <div className="hwrap">
           <div className="scroll-text">
-            {/* <div className="hitem">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit........
-            </div>
-            <div className="hitem">
-              Aliquam consequat varius consequat....... Aliquam consequat varius
-              consequat....... Aliquam consequat varius consequat....... Aliquam
-              consequat varius consequat....... Aliquam consequat varius
-              consequat....... Aliquam consequat varius consequat....... Aliquam
-              consequat varius consequat....... Aliquam consequat varius
-              consequat....... Aliquam consequat varius consequat....... Aliquam
-              consequat varius consequat....... Aliquam consequat varius
-              consequat.......
-            </div> */}
-
             {/* trial 2 */}
             {/* for the animation to work the content inside the following 2 divs must be same so just copy the same news twice  */}
             <div className="hitem">
@@ -247,7 +222,7 @@ function Home() {
       </div>
 
       {/* Campus Events */}
-      <div>
+      <div >
         <p className="header">Campus Events</p>
         <div className="container">
           <button
@@ -297,7 +272,7 @@ function Home() {
       <div>
         <p
           className="header"
-          style={{ marginTop: "-2vh", marginBottom: "4vh" }}
+          style={{ marginTop: "-3vh", marginBottom: "4vh" }}
         >
           SU Initiatives
         </p>
@@ -361,26 +336,30 @@ function Home() {
         >
           <div class="flex-container-contri">
             <div class="dot">
-              <img src={SU} style={{width:"125%", height:"125%"}}/>
+              <img src={SU} style={{width:"130%", height:"125%"}}/>
             </div>
             <div class="dot">
-              <img src={SU} style={{width:"125%", height:"125%"}}/>
+              <img src={SU} style={{width:"130%", height:"125%"}}/>
             </div>
             <div class="dot">
-              <img src={SU} style={{width:"125%", height:"125%"}}/>
+              <img src={journal} style={{width:"125%", height:"125%"}}/>
             </div>
             <div class="dot">
-              <img src={SU} style={{width:"125%", height:"125%"}}/>
+              <img src={dopy} style={{width:"125%", height:"125%"}}/>
             </div>
-            {/* <div class="dot"></div>
-            <div class="dot" id="dot3"></div>
-            <div class="dot" id="dot4"></div> */}
           </div>
 
-          <button className="contri-btn">Contributors To This Page</button>
+          <button className="contri-btn">Contributors</button>
         </div>
       </div>
       <Footer background={Footerdark} />
+      </div>
+      ) : 
+      (<div style={{height:"100vh", width:"100%", background:"black", position:"absolute"}}>
+        <div style={{marginTop:"50vh", marginLeft:"47vw"}}><BarWave1 color="red" height="25px" width="25px" /></div>
+
+      </div>)
+        }
     </div>
   );
 }
